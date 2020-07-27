@@ -12,18 +12,7 @@ interface AppState
   currentScreen:number;
 };
 
-// some general notes on the component classes:
-// 1. When using TypeScript, you need to specify the type of this.props
-// as well as the type of this.state.  You do this in the angle brackets
-// right after "React.Component".  The first is the type of this.props,
-// the second is the type of this.state.  A {} means "anything can go here"
-//
-// 2. What appears to work best (for reasons that aren't entirely obvious
-// with my basic understanding of typescript and react) is to wrap whatever
-// you want as state or props in an interface (see AppState above).  Otherwise
-// if you try to use .map and other stuff in JSX you will get compiler errors.
-//
-// The next set of interesting comments is in AdjustPayScreen.tsx.
+
 class App extends React.Component<{}, AppState>
 {
   constructor()

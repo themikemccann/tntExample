@@ -7,22 +7,16 @@ interface TopEarnersWidgetProps
     appState:ApplicationState;
 }
 
-interface TopEarnersWidgetState
-{
-    employees:Employee[];
-}
-
-class TopEarnersWidget extends React.Component<TopEarnersWidgetProps, TopEarnersWidgetState>
+class TopEarnersWidget extends React.Component<TopEarnersWidgetProps>
 {
     constructor(props:TopEarnersWidgetProps)
     {
         super(props);
-        this.state = { employees: props.appState.Employees };
     }
 
     render()
     {
-        if (this.state.employees === null)
+        if (this.props.appState.Employees === null)
         {
             return(
                 <div>
@@ -32,10 +26,14 @@ class TopEarnersWidget extends React.Component<TopEarnersWidgetProps, TopEarners
         }
         else
         {
+            // this copies the appState.Employees - it is necessary because
+            // Array.sort() modifies the array and all the other components
+            // are using it so we don't want to modify it.
+            const employeesClone = [...this.props.appState.Employees];
             return(
                 <div>
                     <h3>Top Earners List</h3>
-                    {this.state.employees.sort((a: Employee, b: Employee) => { return b.pay-a.pay }).map((employee, index) => (
+                    {employeesClone.sort((a: Employee, b: Employee) => { return b.pay-a.pay }).map((employee, index) => (
                         <p>{employee.name} {employee.pay}</p>
                     ))}
                 </div>
